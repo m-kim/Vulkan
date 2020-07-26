@@ -19,11 +19,10 @@ VkResult VulkanExampleBase::createInstance(bool enableValidation)
 	this->settings.validation = true;
 #endif
 
-	VkApplicationInfo appInfo = {};
-	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-	appInfo.pApplicationName = name.c_str();
-	appInfo.pEngineName = name.c_str();
-	appInfo.apiVersion = apiVersion;
+	m_appInfo.sType          = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+	m_appInfo.pApplicationName = name.c_str();
+	m_appInfo.pEngineName      = name.c_str();
+	m_appInfo.apiVersion       = apiVersion;
 
 	std::vector<const char*> instanceExtensions = { VK_KHR_SURFACE_EXTENSION_NAME };
 
@@ -53,7 +52,7 @@ VkResult VulkanExampleBase::createInstance(bool enableValidation)
 	VkInstanceCreateInfo instanceCreateInfo = {};
 	instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 	instanceCreateInfo.pNext = NULL;
-	instanceCreateInfo.pApplicationInfo = &appInfo;
+	instanceCreateInfo.pApplicationInfo = &m_appInfo;
 	if (instanceExtensions.size() > 0)
 	{
 		if (settings.validation)
@@ -511,9 +510,10 @@ void VulkanExampleBase::renderLoop()
 	}
 #endif
 	// Flush device to make sure all resources can be freed
-	if (device != VK_NULL_HANDLE) {
+	//TODO
+	//if (device != VK_NULL_HANDLE) {
 		vkDeviceWaitIdle(device);
-	}
+	//}
 }
 
 void VulkanExampleBase::updateOverlay()

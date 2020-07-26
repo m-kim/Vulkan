@@ -13,6 +13,8 @@
 #include <exception>
 #include <assert.h>
 #include <algorithm>
+
+#include <vulkan/vulkan.hpp>
 #include "vulkan/vulkan.h"
 #include "VulkanTools.h"
 #include "VulkanBuffer.hpp"
@@ -315,8 +317,16 @@ namespace vks
 				deviceExtensions.push_back(VK_EXT_DEBUG_MARKER_EXTENSION_NAME);
 				enableDebugMarkers = true;
 			}
-
-			if (deviceExtensions.size() > 0)
+#ifdef VK_ENABLE_BETA_EXTENSIONS
+			//vk::PhysicalDeviceRayTracingFeaturesKHR raytracingFeature;
+			//contextInfo.addDeviceExtension(VK_KHR_RAY_TRACING_EXTENSION_NAME, false, &raytracingFeature);
+		    deviceExtensions.push_back("VK_KHR_ray_tracing");
+		    deviceExtensions.push_back("VK_KHR_maintenance3");
+		    deviceExtensions.push_back("VK_KHR_pipeline_library");
+		    deviceExtensions.push_back("VK_KHR_deferred_host_operations");
+		    deviceExtensions.push_back("VK_KHR_buffer_device_address");
+#endif
+				if (deviceExtensions.size() > 0)
 			{
 				deviceCreateInfo.enabledExtensionCount = (uint32_t)deviceExtensions.size();
 				deviceCreateInfo.ppEnabledExtensionNames = deviceExtensions.data();

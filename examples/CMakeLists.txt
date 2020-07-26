@@ -1,7 +1,7 @@
 # Function for building single example
 function(buildExample EXAMPLE_NAME)
 	SET(EXAMPLE_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE_NAME})
-	message(STATUS "Generating project file for example in ${EXAMPLE_FOLDER}")
+	message(STATUS "Generating project file for example in ${EXAMPLE_FOLDER} ${Vulkan_INCLUDE_DIR}")
 	# Main
 	file(GLOB SOURCE *.cpp ${BASE_HEADERS} ${EXAMPLE_FOLDER}/*.cpp)
 	SET(MAIN_CPP ${EXAMPLE_FOLDER}/${EXAMPLE_NAME}.cpp)
@@ -37,6 +37,7 @@ function(buildExample EXAMPLE_NAME)
 		target_link_libraries(${EXAMPLE_NAME} base )
 	endif(WIN32)
 
+	target_include_directories(${EXAMPLE_NAME} PUBLIC ${Vulkan_INCLUDE_DIR})
 	set_target_properties(${EXAMPLE_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 	if(RESOURCE_INSTALL_DIR)
@@ -52,77 +53,12 @@ function(buildExamples)
 endfunction(buildExamples)
 
 set(EXAMPLES
-	bloom
-	computecloth
-	computecullandlod
-	computeheadless
-	computenbody
-	computeparticles
-	computeraytracing
-	computeshader
-	conditionalrender
-	conservativeraster
-	debugmarker
-	deferred
-	deferredmultisampling
-	deferredshadows
-	descriptorsets
-	displacement
-	distancefieldfonts
-	dynamicuniformbuffer
-	gears
-	geometryshader
-	gltfloading
-	gltfscenerendering
-	gltfskinning
-	hdr
-	imgui
-	indirectdraw
-	inlineuniformblocks
-	inputattachments
-	instancing
-	multisampling
-	multithreading
-	multiview
-	negativeviewportheight
+
 	nv_ray_tracing_basic
 	nv_ray_tracing_shadows
 	nv_ray_tracing_reflections
-	occlusionquery
-	offscreen
-	parallaxmapping
-	particlefire
-	pbrbasic
-	pbribl
-	pbrtexture
-	pipelines
-	pipelinestatistics
-	pushconstants
-	pushdescriptors
-	radialblur
-	renderheadless
-	screenshot
-	shadowmapping
-	shadowmappingomni
-	shadowmappingcascade
-	specializationconstants
-	sphericalenvmapping
-	ssao
-	stencilbuffer
-	subpasses
-	terraintessellation
-	tessellation
-	textoverlay
-	texture
-	texture3d
-	texturearray
-	texturecubemap
-	texturecubemaparray
-	texturemipmapgen
-	texturesparseresidency
-	triangle
-	viewportarray
-	vulkanscene
+	vk_ray_tracing_basic
+
 )
 
 buildExamples()

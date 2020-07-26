@@ -41,7 +41,7 @@
 #include <numeric>
 #include <array>
 
-#include "vulkan/vulkan.h"
+#include "vulkan/vulkan.hpp"
 
 #include "keycodes.hpp"
 #include "VulkanTools.h"
@@ -75,6 +75,9 @@ private:
 	void destroyCommandBuffers();
 	std::string shaderDir = "glsl";
 protected:
+
+		VkApplicationInfo m_appInfo = {};
+
 	// Returns the path to the root of the glsl or hlsl shader directory.
 	std::string getShadersPath() const;
 
@@ -100,7 +103,7 @@ protected:
 	/** @brief Optional pNext structure for passing extension structures to device creation */
 	void* deviceCreatepNextChain = nullptr;
 	/** @brief Logical device, application's view of the physical device (GPU) */
-	VkDevice device;
+	vk::Device device;
 	// Handle to the device graphics queue that command buffers are submitted to
 	VkQueue queue;
 	// Depth buffer format (selected during Vulkan initialization)

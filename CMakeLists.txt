@@ -6,7 +6,9 @@ set(NAME vulkanExamples)
 
 project(${NAME})
 
-include_directories(external)
+add_definitions(-DVK_ENABLE_BETA_EXTENSIONS)
+
+include_directories(external/Vulkan-Headers/include)
 include_directories(external/glm)
 include_directories(external/gli)
 include_directories(external/assimp)
